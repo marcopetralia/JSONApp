@@ -34,7 +34,8 @@ public class SampleAPIActivity extends AppCompatActivity {
     ProgressBar loading;
     FoursquareAPI foursquareAPI;
 
-    EditText searchET;
+    EditText searchPlaceET;
+    EditText searchCityET;
     Button searchBTN;
 
     @Override
@@ -47,7 +48,8 @@ public class SampleAPIActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        searchET=(EditText) findViewById(R.id.search_et);
+        searchCityET=(EditText) findViewById(R.id.search_city_et);
+        searchPlaceET=(EditText) findViewById(R.id.search_place_et);
         searchBTN=(Button) findViewById(R.id.search_btn);
         loading=(ProgressBar) findViewById(R.id.loading);
 
@@ -63,8 +65,9 @@ public class SampleAPIActivity extends AppCompatActivity {
     }
 
     public void doSearch(){
-        String query=searchET.getText().toString();
-        new FoursquareApiTask().execute(query);
+        String city= searchCityET.getText().toString();
+        String query=searchPlaceET.getText().toString();
+        new FoursquareApiTask().execute(city,query);
     }
 
     private class FoursquareApiTask extends AsyncTask<String, Void, ArrayList<Place>> {
@@ -91,7 +94,7 @@ public class SampleAPIActivity extends AppCompatActivity {
 
             try{
                 foursquareAPI =new FoursquareAPI();
-                String url=foursquareAPI.getUrlString(params[0]);
+                String url=foursquareAPI.getUrlString(params[0],params[1]);
                 JSONObject jsonResposnse =foursquareAPI.getJSONObjectFromURL(url);
                 JSONArray jsonPlaces=jsonResposnse.getJSONObject("response").getJSONArray("venues");
 

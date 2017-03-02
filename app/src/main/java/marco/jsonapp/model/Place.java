@@ -13,12 +13,14 @@ public class Place {
     private String address;
     private Double latitude;
     private Double longitude;
+    private String contact;
 
     //KEYS
     private static final String NAME_KEY="name";
     private static final String ADDRESS_KEY="address";
     private static final String LAT_KEY="lat";
     private static final String LON_KEY="lng";
+    private static final String PHONE_KEY="phone";
 
 
     public Place(JSONObject jsonPlace){
@@ -28,6 +30,8 @@ public class Place {
             address= jsonAddress.getString(ADDRESS_KEY);
             latitude= Double.parseDouble(jsonAddress.getString(LAT_KEY));
             longitude= Double.parseDouble(jsonAddress.getString(LON_KEY));
+            JSONObject jsonContact=jsonPlace.getJSONObject("contact");
+            contact= jsonContact.getString(PHONE_KEY);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -52,6 +56,14 @@ public class Place {
 
     public Double getLatitude() {
         return latitude;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public void setLatitude(Double latitude) {

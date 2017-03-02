@@ -17,7 +17,9 @@ import java.net.URL;
  */
 public class FoursquareAPI {
 
-    private static final String BASE_URL = "https://api.foursquare.com/v2/venues/search?v=20161016&near=rome&query=";
+    private static final String BASE_URL = "https://api.foursquare.com/v2/venues/search?v=20161016&near=";
+    private static final String QUERY_KEY="&query=";
+    private static final String CATEGORY_KEY_RESTAURANT="&categoryId=4bf58dd8d48988d110941735";
     private static final String TOKEN = "&client_id=PRNHPU011KKTDFQUMCP3BGHF3K0532MFRTN5VJAVD4KTVVDM&client_secret=0NRKK422MKHOAAI31C524G4LFV41ADGMKGOIF2MONVW4X2GB";
 
     public JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
@@ -45,8 +47,8 @@ public class FoursquareAPI {
         return new JSONObject(jsonString);
     }
 
-    public String getUrlString(String query){
-        return BASE_URL+query+TOKEN;
+    public String getUrlString(String city, String query){
+        return BASE_URL+city+QUERY_KEY+query+CATEGORY_KEY_RESTAURANT+TOKEN;
     }
 
 }

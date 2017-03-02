@@ -39,6 +39,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         Place place = dataSet.get(position);
         holder.placeNameTV.setText(place.getName());
         holder.placeAdressTV.setText(place.getAddress());
+        holder.placeContactTV.setText(place.getContact());
     }
 
     @Override
@@ -46,9 +47,14 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         return dataSet.size();
     }
 
+    public Place getPlace(int position){
+        return dataSet.get(position);
+    }
+
     class PlaceViewHolder extends RecyclerView.ViewHolder {
         TextView placeNameTV;
         TextView placeAdressTV;
+        TextView placeContactTV;
         Button goBTN;
         Button callBTN;
 
@@ -56,6 +62,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
             super(itemView);
             goBTN = (Button) itemView.findViewById(R.id.go_btn);
             callBTN = (Button) itemView.findViewById(R.id.call_btn);
+            placeContactTV=(TextView)itemView.findViewById(R.id.place_contact);
             placeNameTV = (TextView) itemView.findViewById(R.id.place_name);
             placeAdressTV = (TextView) itemView.findViewById(R.id.place_address);
 
@@ -64,9 +71,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
                 public void onClick(View view) { //inseriamo un listener all'icona che ci collega col sito
                     Intent intent=new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    Uri uri= Uri.parse("geo:0,0?q="+addressTV.getText().toString());
+                    Uri uri= Uri.parse("geo:0,0?q="+getPlace(getAdapterPosition()).getLatitude().toString()+","+getPlace(getAdapterPosition()).getLongitude().toString()+"?z=0");
                     intent.setData(uri);
-                    v.getContext().startActivity(intent);
+                    view.getContext().startActivity(intent);
                 }
             });
 
@@ -75,9 +82,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
                 public void onClick(View view) { //inseriamo un listener all'icona che ci collega col sito
                     Intent intent=new Intent();
                     intent.setAction(Intent.ACTION_DIAL);
-                    Uri uri= Uri.parse("tel:"+place.getAddress().toString());
+                    Uri uri= Uri.parse("tel:"+getPlace(getAdapterPosition()).getContact().toString());
                     intent.setData(uri);
-                    v.getContext().startActivity(intent);
+                    view.getContext().startActivity(intent);
                 }
                 });
         }

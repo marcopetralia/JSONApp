@@ -7,19 +7,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:hint="City"
+            android:inputType="text"
+            android:maxLines="1"
+            android:id="@+id/search_city_et"/>
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:hint="Insert a place"
-            android:id="@+id/search_et"/>
+            android:hint="Place"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:id="@+id/search_place_et"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="SEARCH"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_gravity="end"
             android:id="@+id/search_btn"/>
 
     </LinearLayout>
